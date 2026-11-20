@@ -15,8 +15,8 @@ Video walk-through: https://youtu.be/srlhW4H-Gtg
 All secrets live in a single `.env` file in the project root. By the end of this section it should contain:
 
 ```
-OPENROUTER_API_KEY=sk-or-v1-...
-MODEL=openai/gpt-5.4-nano
+OPENAI_API_KEY=sk-...
+MODEL=gpt-5.4-nano
 OWNER_NAME=Ed Donner
 ADMIN_PASSWORD=your-chosen-admin-password
 PUSHOVER_USER=...
@@ -31,18 +31,17 @@ COOKIE_SECURE=0
 
 `SESSION_SECRET` signs the admin session cookie. It is optional locally - if unset, it is derived from `ADMIN_PASSWORD` - but set it to a long random value (e.g. run `openssl rand -hex 32`) so that changing your admin password later does not invalidate live admin sessions. `COOKIE_SECURE` gates whether that cookie requires HTTPS: leave it `0` (or unset) for local http; it is set to `1` automatically in production (see [Deploy to fly.io](#deploy-to-flyio)).
 
-### OpenRouter
+### OpenAI
 
-The Avatar's LLM calls go through [OpenRouter](https://openrouter.ai). If you already have a key in `.env`, skip this.
+The Avatar calls the OpenAI API directly. If you already have a key in `.env`, skip this.
 
-1. Go to https://openrouter.ai and sign in (or sign up).
-2. Click your avatar (top right) and choose **Keys**, or go straight to https://openrouter.ai/keys.
-3. Click **Create Key**, give it a name (e.g. `avatar`), and click **Create**.
-4. Copy the key (it starts with `sk-or-v1-`) and add it to `.env`:
+1. Go to https://platform.openai.com/api-keys and sign in.
+2. Click **Create new secret key**, name it (for example `avatar`), and copy it.
+3. Add it to `.env`:
    ```
-   OPENROUTER_API_KEY=sk-or-v1-...
+   OPENAI_API_KEY=sk-...
    ```
-5. Add some credit under **Settings > Credits** if your account has none. The Avatar uses the model in `MODEL`. `openai/gpt-5.4-nano` is very cheap and good for development and testing; for a live site, consider a stronger model such as `openai/gpt-5.4-mini` (just set `MODEL` accordingly).
+4. The Avatar uses the model in `MODEL`. `gpt-5.4-nano` is the cheap default for development and testing; for a live site, consider a stronger model such as `gpt-5.4-mini`.
 
 ### Supabase
 
