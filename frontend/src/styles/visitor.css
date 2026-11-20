@@ -23,6 +23,8 @@ body { display: flex; flex-direction: column; overflow: hidden; }
   letter-spacing: var(--tracking-wide); text-transform: uppercase; margin-top: 3px;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.writeup-link { display: inline-block; text-decoration: none; }
+.writeup-link:hover { color: var(--text); }
 .switch-label { white-space: nowrap; }
 .topbar-right { display: flex; align-items: center; gap: var(--space-3); }
 .icon-btn {
