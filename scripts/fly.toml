@@ -1,0 +1,30 @@
+# Fly.io config for this twin. Change `app` to a globally unique name before deploying.
+app = "avatar-amna"
+primary_region = "bom"
+
+[env]
+  PORT = "8000"
+  COOKIE_SECURE = "1"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_start_machines = true
+  auto_stop_machines = "stop"
+  min_machines_running = 1
+
+  [http_service.concurrency]
+    type = "connections"
+    soft_limit = 90
+    hard_limit = 150
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/api/config"
+    interval = "15s"
+    timeout = "3s"
+    grace_period = "10s"
+
+[[vm]]
+  size = "shared-cpu-2x"
+  memory = "1gb"

@@ -14,6 +14,12 @@ from supabase import Client, create_client
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(PROJECT_ROOT / ".env", override=True)
 
+pytestmark = pytest.mark.skipif(
+    not os.environ.get("SUPABASE_URL", "").startswith("https://")
+    or not os.environ.get("SUPABASE_KEY", "").startswith("sb_secret_"),
+    reason="Supabase credentials are not configured",
+)
+
 EXPECTED_COLUMNS = {
     "id",
     "conversation_id",

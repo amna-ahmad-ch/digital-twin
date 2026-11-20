@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital twin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,18..72,400;0,18..72,500;0,18..72,600;1,18..72,400;1,18..72,500&display=swap" rel="stylesheet">
+</head>
+<body class="hud-grid">
+<header class="topbar">
+  <div class="brand">
+    <div>
+      <div class="brand-name" id="brand-name">Digital twin</div>
+      <div class="brand-sub">Digital twin</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <label class="name-field" title="Your name or initials">
+      <svg class="icon icon--sm icon-faint"><use href="/icons.svg#i-visitor"/></svg>
+      <input id="visitor-name" type="text" maxlength="80" placeholder="Your name / initials" autocomplete="nickname">
+    </label>
+    <button class="btn btn--ghost btn--sm" id="reset" type="button"><svg class="icon icon--sm"><use href="/icons.svg#i-reset"/></svg> Reset</button>
+    <span class="divider-v"></span>
+    <button class="icon-btn" id="theme-toggle" type="button" title="Toggle light / dark">
+      <svg class="icon icon--sm theme-moon"><use href="/icons.svg#i-moon"/></svg>
+      <svg class="icon icon--sm theme-sun"><use href="/icons.svg#i-sun"/></svg>
+    </button>
+  </div>
+</header>
+<main class="chat">
+  <div class="convo scroll" id="convo">
+    <div class="convo-inner" id="convo-inner">
+      <div class="intro" id="intro">
+        <div class="avatar avatar-twin avatar-twin-photo"></div>
+        <h1 id="intro-title">Hi, I'm Amna's <em>digital twin</em></h1>
+        <p id="intro-copy">Ask me anything about my software engineering journey, projects, technical skills, or transition into AI.</p>
+        <div class="suggest-row" id="suggestions"></div>
+      </div>
+    </div>
+  </div>
+  <div class="composer-dock">
+    <div class="composer-wrap">
+      <div class="composer" id="composer">
+        <textarea id="draft" rows="1" placeholder="Message the twin…" autofocus></textarea>
+        <button class="btn-send" id="send" type="button" title="Send (Enter)"><svg class="icon"><use href="/icons.svg#i-send"/></svg></button>
+      </div>
+      <div class="composer-hint">
+        <span><span class="kbd">Enter</span> to send</span>
+        <span class="sep"></span>
+        <span><span class="kbd">Shift</span>+<span class="kbd">Enter</span> for a new line</span>
+      </div>
+      <div class="notice" id="notice" role="status"></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

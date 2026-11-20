@@ -1,0 +1,15 @@
+<!-- Paste into a WordPress custom HTML block. Set BASE to the twin's public URL. -->
+<style>
+  .avatar-frame { width: 100%; height: min(820px, calc(100vh - 120px)); border: 0; display: block; }
+</style>
+<iframe class="avatar-frame" title="Amna Ahmad" src="https://avatar-amna.fly.dev/"></iframe>
+<script>
+  (function () {
+    var BASE = "https://avatar-amna.fly.dev/";
+    var frame = document.querySelector(".avatar-frame");
+    if (!frame) return;
+    var params = new URLSearchParams(location.search);
+    var q = params.get("q");
+    frame.src = q ? BASE.replace(/\/$/, "") + "/?q=" + encodeURIComponent(q) : BASE;
+  })();
+</script>

@@ -1,0 +1,202 @@
+/* ============================================================================
+   AVATAR — Design Tokens (single source of truth)
+   Digital Twin platform. Dark mode is the hero; light is fully supported.
+   Theme is controlled by [data-theme="dark"|"light"] on <html> or any wrapper.
+   ----------------------------------------------------------------------------
+   Brand palette — Classic Elegance:
+     Navy    #2E4053  — structure, headings, dark surfaces
+     Slate   #BFC9CA  — secondary surfaces and quiet UI
+     Sage    #AAB7B8  — borders, supporting text
+     Mist    #D5D8DC  — light surfaces, faint labels
+     Gold    #F1C40F  — the spark: human-in-the-loop, focus, primary actions
+   Rules: no gradients in UI chrome, no extra hues, no left-border accent
+   panels, no emoji. Navy-led, gold as the spark.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand constants (hue anchors — do not theme these) ---- */
+  --brand-yellow: #F1C40F;
+  --brand-blue:   #2E4053;
+  --brand-purple: #F1C40F;
+  --brand-navy:   #2E4053;
+  --brand-gray:   #AAB7B8;
+  --brand-slate:  #BFC9CA;
+  --brand-mist:   #D5D8DC;
+
+  /* ---- Typography families ---- */
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ---- Type scale (root 16px) ---- */
+  --text-2xs: 0.6875rem; /* 11 — mono micro labels */
+  --text-xs:  0.75rem;   /* 12 */
+  --text-sm:  0.8125rem; /* 13 */
+  --text-base:0.9375rem; /* 15 — UI body default */
+  --text-md:  1.0625rem; /* 17 — message body */
+  --text-lg:  1.375rem;  /* 22 */
+  --text-xl:  1.875rem;  /* 30 */
+  --text-2xl: 2.5rem;    /* 40 */
+  --text-3xl: 3.5rem;    /* 56 */
+  --text-4xl: 4.75rem;   /* 76 — display */
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.28;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.62;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-caps: 0.14em;  /* mono eyebrow labels */
+
+  /* ---- Spacing (4px base) ---- */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 112px;
+
+  /* ---- Radius (sharp, modern — crisp but not hard) ---- */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 0.78, 0.24, 1);
+  --ease-in-out: cubic-bezier(0.6, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 360ms;
+
+  /* ---- Layout ---- */
+  --container-chat: 760px;     /* visitor conversation column */
+  --sidebar-w: 340px;          /* admin inbox sidebar */
+  --header-h: 64px;
+}
+
+/* ============================================================================
+   DARK THEME — the hero. Cool, navy-tinted neutrals.
+   ========================================================================== */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surfaces, stepped from #2E4053 */
+  --surface-0: #1B2836;
+  --surface-1: #243444;
+  --surface-2: #2E4053;
+  --surface-3: #3A4E63;
+  --surface-sunken: #15202B;
+
+  --border: #3E5364;
+  --border-strong: #5C6E78;
+  --hairline: rgba(213, 216, 220, 0.10);
+
+  --text: #F4F6F7;
+  --text-muted: #D5D8DC;
+  --text-faint: #AAB7B8;
+  --text-on-accent: #F7F8F9;
+  --text-on-yellow: #2E4053;
+
+  /* Slate stands in for the old blue identity */
+  --blue: #D5D8DC;
+  --blue-strong: #BFC9CA;
+  --blue-ink: #E8EBED;
+  --blue-soft: rgba(191, 201, 202, 0.14);
+  --blue-line: rgba(191, 201, 202, 0.45);
+
+  /* Gold — spark, human, focus, primary actions */
+  --yellow: #F1C40F;
+  --yellow-strong: #F1C40F;
+  --yellow-ink: #F1C40F;
+  --yellow-soft: rgba(241, 196, 15, 0.16);
+  --yellow-line: rgba(241, 196, 15, 0.55);
+
+  --purple: #F1C40F;
+  --purple-strong: #F1C40F;
+  --purple-hover: #D4AC0D;
+  --purple-soft: rgba(241, 196, 15, 0.18);
+
+  --focus-ring: rgba(241, 196, 15, 0.55);
+  --danger: #9A7D0A;
+  --positive: #BFC9CA;
+
+  --role-visitor: #D5D8DC;
+  --role-avatar: #BFC9CA;
+  --role-human: #F1C40F;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 8px 24px -8px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.35);
+  --shadow-lg: 0 24px 60px -16px rgba(0,0,0,0.65), 0 6px 16px rgba(0,0,0,0.4);
+  --glow-blue: 0 0 0 1px var(--blue-line), 0 8px 28px -10px rgba(191,201,202,0.28);
+  --glow-yellow: 0 0 0 1px var(--yellow-line), 0 8px 30px -10px rgba(241,196,15,0.32);
+
+  --grid-line: rgba(191, 201, 202, 0.06);
+}
+
+/* ============================================================================
+   LIGHT THEME — fully designed. Cool off-white, low chroma.
+   ========================================================================== */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --surface-0: #EEF0F1;
+  --surface-1: #ffffff;
+  --surface-2: #E4E7E9;
+  --surface-3: #D5D8DC;
+  --surface-sunken: #D5D8DC;
+
+  --border: #BFC9CA;
+  --border-strong: #AAB7B8;
+  --hairline: rgba(46, 64, 83, 0.10);
+
+  --text: #2E4053;
+  --text-muted: #4E5E68;
+  --text-faint: #6E7C80;
+  --text-on-accent: #F7F8F9;
+  --text-on-yellow: #2E4053;
+
+  --blue: #2E4053;
+  --blue-strong: #2E4053;
+  --blue-ink: #2E4053;
+  --blue-soft: rgba(46, 64, 83, 0.08);
+  --blue-line: rgba(46, 64, 83, 0.28);
+
+  --yellow: #F1C40F;
+  --yellow-strong: #D4AC0D;
+  --yellow-ink: #7A6408;
+  --yellow-soft: rgba(241, 196, 15, 0.22);
+  --yellow-line: rgba(212, 172, 13, 0.70);
+
+  --purple: #F1C40F;
+  --purple-strong: #F1C40F;
+  --purple-hover: #D4AC0D;
+  --purple-soft: rgba(241, 196, 15, 0.20);
+
+  --focus-ring: rgba(241, 196, 15, 0.65);
+  --danger: #7A6408;
+  --positive: #2E4053;
+
+  --role-visitor: #2E4053;
+  --role-avatar: #4E5E68;
+  --role-human: #D4AC0D;
+
+  --shadow-sm: 0 1px 2px rgba(46, 64, 83, 0.06);
+  --shadow-md: 0 10px 28px -12px rgba(46, 64, 83, 0.18), 0 2px 6px rgba(46, 64, 83, 0.06);
+  --shadow-lg: 0 28px 64px -20px rgba(46, 64, 83, 0.22), 0 6px 16px rgba(46, 64, 83, 0.08);
+  --glow-blue: 0 0 0 1px var(--blue-line), 0 10px 30px -12px rgba(46, 64, 83, 0.18);
+  --glow-yellow: 0 0 0 1px var(--yellow-line), 0 10px 30px -12px rgba(241, 196, 15, 0.35);
+
+  --grid-line: rgba(46, 64, 83, 0.045);
+}

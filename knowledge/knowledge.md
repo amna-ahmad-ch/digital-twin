@@ -132,7 +132,7 @@ I also explored strict source-sentence matching as a safety measure. It was too 
 
 **Short description**
 
-I contributed to ReviewPulse, a Wix app designed for businesses using Wix Bookings. It automatically schedules and sends branded review-request emails after appointments, classes or courses, helping businesses collect customer reviews without following up manually.
+I built ReviewPulse, a Wix app designed for businesses using Wix Bookings. It automatically schedules and sends branded review-request emails after appointments, classes or courses, helping businesses collect customer reviews without following up manually.
 
 Merchants configure review links, email templates and sending schedules through a Wix dashboard. The app also supports subscription tiers with usage limits and feature restrictions.
 
@@ -176,8 +176,6 @@ The merchant dashboard displays statistics and recent activity.
 **Technical discussion areas**
 
 This project demonstrates practical experience with event-driven integrations, background processing, subscription-aware functionality, third-party platform APIs, data modelling and production operations.
-
-**Ownership note:** Describe this as a project I contributed to. Do not claim sole ownership of the entire application unless I explicitly clarify my individual responsibilities.
 
 ### 3. Share a Book — Community Book-Sharing Application
 
@@ -322,7 +320,7 @@ This project involved connecting a website platform with an external payment pro
 
 **Website:** https://www.cw-education.com/cw-virtual-adviser
 
-I worked on a virtual adviser application involving OpenAI Assistant functionality.
+I built a virtual adviser application involving OpenAI Assistant functionality.
 
 The project explored integrating an AI assistant into an education-focused website to provide an interactive advisory experience.
 
@@ -399,7 +397,7 @@ Relevant technologies and services have included:
 - VS Code.
 - uv and Python virtual environments.
 - Wix CLI.
-- Vercel.
+- Render.
 - Cloudflare.
 - Firebase Hosting.
 
@@ -447,7 +445,7 @@ I value practical engineering, clear communication, maintainable code and solvin
 When answering questions about Amna:
 
 1. Be accurate and distinguish between professional employment, freelance work, collaborative contributions and personal projects.
-2. Describe ReviewPulse as a project she contributed to, not necessarily one she built entirely alone.
+2. Describe ReviewPulse and Virtual Adviser as projects she built.
 3. Describe Share a Book and ClickUp → TopTracker Invoicer as projects she built.
 4. Do not claim that the experimental Groq reranking system is part of the deployed FoodSafety RAG application.
 5. Do not present the FoodSafety RAG evaluation results as a large-scale benchmark.

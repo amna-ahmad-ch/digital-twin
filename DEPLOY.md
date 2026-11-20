@@ -14,7 +14,7 @@ How to deploy Avatar to [fly.io](https://fly.io) as a single container, run it i
 
 ### Why this shape
 
-The app is **IO-bound**: a chat reply is dominated by the OpenRouter LLM, which is streamed back **asynchronously** (SSE), so ~100 concurrent chats are ~100 mostly-idle async tasks relaying tokens — light on CPU. The likelier constraint is **memory** (Python + the Agents SDK + many live connections), so we give 1 GB. `shared-cpu-2x` (vs 1x) buys more consistent CPU on an always-on box for not much money.
+The app is **IO-bound**: a chat reply is dominated by the OpenAI model, which is streamed back **asynchronously** (SSE), so ~100 concurrent chats are ~100 mostly-idle async tasks relaying tokens — light on CPU. The likelier constraint is **memory** (Python + the Agents SDK + many live connections), so we give 1 GB. `shared-cpu-2x` (vs 1x) buys more consistent CPU on an always-on box for not much money.
 
 **Region:** `us-west-2` is an AWS code (Oregon, where Supabase lives); Fly uses its own regions and has no Pacific-Northwest one, so `sjc` is the closest. Bonus: from `sjc`, the Supabase round-trips that take ~110 ms from a laptop drop to ~15–25 ms, so admin/chat DB calls are actually faster in production.
 
@@ -88,7 +88,7 @@ flyctl status -a "$APP" >/dev/null 2>&1 || { echo "Creating $APP..."; flyctl app
 
 # 2. Stage secrets from .env (surrounding quotes stripped). PORT/COOKIE_SECURE are
 #    set in fly.toml [env], not here. --stage applies them on the next deploy (one rollout).
-KEYS="OPENROUTER_API_KEY MODEL OWNER_NAME ADMIN_PASSWORD PUSHOVER_USER PUSHOVER_TOKEN SUPABASE_URL SUPABASE_KEY SESSION_SECRET"
+KEYS="OPENAI_API_KEY MODEL OWNER_NAME ADMIN_PASSWORD SUPABASE_URL SUPABASE_KEY SESSION_SECRET"
 args=()
 for k in $KEYS; do
   v=$(grep -E "^${k}=" .env | head -1 | cut -d= -f2-)
@@ -116,11 +116,11 @@ Set in `scripts/fly.toml` `[env]` (non-sensitive, committed):
 
 Set as **Fly secrets** (sensitive, pulled from `.env` by `deploy.sh`):
 
-`OPENROUTER_API_KEY`, `MODEL`, `OWNER_NAME`, `ADMIN_PASSWORD`, `PUSHOVER_USER`, `PUSHOVER_TOKEN`, `SUPABASE_URL`, `SUPABASE_KEY`, `SESSION_SECRET`.
+`OPENAI_API_KEY`, `MODEL`, `OWNER_NAME`, `ADMIN_PASSWORD`, `SUPABASE_URL`, `SUPABASE_KEY`, `SESSION_SECRET`.
 
 Notes:
 - **`SESSION_SECRET`** (now in `.env`) signs the admin session cookie. Setting it explicitly means rotating `ADMIN_PASSWORD` later won't unexpectedly invalidate the session-secret derivation. Use a long random value.
-- **`MODEL`** is whatever is in `.env`. For production, set `MODEL=openai/gpt-5.4-mini` before deploying (this is what the reference deployment runs); `openai/gpt-5.4-nano` is the cheaper dev/test model and the code default. You can change it later with `fly secrets set -a <your-app> MODEL=openai/gpt-5.4-mini`.
+- **`MODEL`** is whatever is in `.env`. For production, set `MODEL=gpt-5.4-mini` before deploying; `gpt-5.4-nano` is the cheaper dev/test model and the code default. You can change it later with `fly secrets set -a <your-app> MODEL=gpt-5.4-mini`.
 - Secrets can be set/changed any time: `fly secrets set -a avatar-ed KEY=value` (triggers a rolling restart). View names with `fly secrets list -a avatar-ed` (values are never shown).
 
 ## 4. Deploy
@@ -141,7 +141,7 @@ Note: the per-conversation rate limit (20 messages/minute) is held in memory **p
 
 ## 5. Testing (post-deploy smoke)
 
-Run against `https://avatar-ed.fly.dev`. Use `MODEL=openai/gpt-5.4-nano` for cheap test calls if you like, and clean up test data afterwards.
+Run against `https://avatar-ed.fly.dev`. Use `MODEL=gpt-5.4-nano` for cheap test calls if you like, and clean up test data afterwards.
 
 - [ ] `fly status -a avatar-ed` — 1 machine in `sjc`, state `started`, health check **passing**.
 - [ ] `curl -s https://avatar-ed.fly.dev/api/config` → `{"owner_name":"..."}` (200).
@@ -166,12 +166,12 @@ Deployment is successful when:
 
 ## Abuse guards (built in)
 
-Two cheap protections for your OpenRouter key are enforced in the backend, with no configuration:
+Two cheap protections for your OpenAI key are enforced in the backend, with no configuration:
 
 - Visitor messages longer than 20,000 characters are truncated (with a note appended) before being stored or sent to the model.
 - Each `conversation_id` is limited to 20 messages/minute; excess requests get HTTP 429 *before* any LLM call, and the visitor UI shows a friendly slow-down message.
 
-The rate limit is in-memory per machine (see the scale-out note in section 4): one always-on machine gives exactly 20/min per conversation; more than one machine gives 20/min per conversation per machine. Your OpenRouter account limits remain the overall backstop.
+The rate limit is in-memory per machine (see the scale-out note in section 4): one always-on machine gives exactly 20/min per conversation; more than one machine gives 20/min per conversation per machine. Your OpenAI account limits remain the overall backstop.
 
 ## 7. Custom domain (optional)
 
